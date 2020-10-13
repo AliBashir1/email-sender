@@ -1,0 +1,34 @@
+{
+  "name": "email-sender",
+  "version": "1.0.0",
+  "description": "a web-based application to send emails.",
+  "main": "app.js",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
+    "email-validator": "^2.0.4",
+    "express": "^4.17.1",
+    "mongodb": "^3.6.2",
+    "nodemon": "^2.0.4",
+    "password-validator": "^5.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "watch": "nodemon db.js",
+    "test": "echo \"Hello\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AliBashir1/email-sender.git"
+  },
+  "keywords": [
+    "email",
+    "sender"
+  ],
+  "author": "Ali Bashir",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/AliBashir1/email-sender/issues"
+  },
+  "homepage": "https://github.com/AliBashir1/email-sender#readme"
+}
