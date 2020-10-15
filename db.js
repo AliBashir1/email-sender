@@ -18,8 +18,8 @@ async function dbConnection ()
         const app = require('./app')
         app.listen(process.env.PORT)
 
-    } catch (databaseConnectionError){
-        console.log("Database connection Error: \n" + databaseConnectionError)
+    } catch (dbErr){
+        console.log(dbErr)
     
     } 
 

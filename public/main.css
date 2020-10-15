@@ -77,6 +77,28 @@ form, p{
     text-transform: uppercase;
 }
 
+.message{
+    margin: 0 auto;
+    height: 50px;
+    text-align: center;
+    font-size: 1.2em;
+    border-radius: 3px;
+    margin-top: 5px;
+    padding-top: 10px;
+      
+}
+
+.error{
+    background-color: rgb(236, 195, 195);
+    border: 1px solid rgb(100, 3, 3);
+    color: rgb(100, 3, 3);
+}
+
+.success{
+    background-color: rgb(195, 236, 209);
+    border: 1px solid rgb(11, 100, 3);
+    color: rgb(19, 100, 3);
+}
 
 
 /* forms rules */ 
@@ -96,7 +118,6 @@ form, p{
     float: left;
     padding: 30px;
     height: auto;
-    
 
 }
 

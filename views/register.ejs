@@ -41,8 +41,10 @@
             </div>
         </div>
     </header>
+   
     <!-- sign up and login forms -->
     <div class="container">
+        <%- include("includes/flash")%>
         <div class="login-h1">
             <h1>Register</h1>
         </div>
@@ -63,6 +65,8 @@
                     <input required name="email" type="email" id="registerEmail" placeholder="Enter Your Email">
                     <label for="password" class="hidden-label" >Password</label>
                     <input required name="password" type="password" id="password" placeholder="Enter Your Password">
+                    <label for="confirmPassword" class="hidden-label" >Password</label>
+                    <input required name="confirmPassword" type="password" id="confirmPassword" placeholder="Please confirm password">
 
                     <input type="submit">
                 </form>
