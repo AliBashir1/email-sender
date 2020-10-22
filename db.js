@@ -17,6 +17,7 @@ async function dbConnection ()
         // run app once database connection is
         const app = require('./app')
         app.listen(process.env.PORT)
+    
 
     } catch (dbErr){
         console.log(dbErr)

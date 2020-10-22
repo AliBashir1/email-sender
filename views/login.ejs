@@ -115,3 +115,27 @@
     
 </body>
 </html>
+
+
+<!--  registration form  -->
+
+
+<form action="/register" method="POST">
+        <%- include("includes/flash")%>
+        <label for="firstName" class="d-none" >First Name</label>
+        <input required name="firstName" type="text" id="firstName" placeholder="First Name">
+        
+        <label for="lastName" class="d-none" >Last Name</label>
+        <input required name="lastName" type="text" id="lastName" placeholder="Last Name">
+
+        <label for="registerEmail" class="d-none" >Email</label>
+        <input required name="email" type="email" id="registerEmail" placeholder="Enter Your Email">
+        <label for="password" class="d-none" >Password</label>
+        <input required name="password" type="password" id="password" placeholder="Enter Your Password">
+        <label for="confirmPassword" class="d-none" >Password</label>
+        <input required name="confirmPassword" type="password" id="confirmPassword" placeholder="Please confirm password">
+
+        <input type="submit" class="modalClose" data-dismiss="modal" value="Close" >
+        <input type="submit"  value="Submit">
+    </div>
+</form

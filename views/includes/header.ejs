@@ -1,0 +1,73 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
+    <link rel="stylesheet" href="/main.css">
+   
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,700;1,800;1,900&family=Roboto:wght@100;300;500&display=swap" rel="stylesheet">
+
+    <title>Document</title>
+</head>
+
+<body>
+  
+    <!-- headers -->
+    <div class="container-fluid cust-b-color shadow"> 
+        <!-- responsive for difference devices -->
+        <div class="container">
+            <header  class="row p-2">
+                <div class="col">
+                    <!-- logo -->
+                    <svg width="80" height="51" viewBox="0 0 210 181" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M208 2L4 99.94L53.9444 110.56L208 2Z" fill="#87E4BA"/>
+                        <path d="M208 2L53.9444 110.56V154.22L208 2Z" fill="#87E4BA"/>
+                        <path d="M140.684 179L208 2L95.0822 128.26L140.684 179Z" fill="#87E4BA"/>
+                        <path d="M95.0822 128.26L208 2L53.9444 154.22L95.0822 128.26Z" fill="#87E4BA"/>
+                        <path d="M208 2L4 99.94L53.9444 110.56M208 2L140.684 179L95.0822 128.26M208 2L95.0822 128.26M208 2L53.9444 110.56M208 2L53.9444 154.22M95.0822 128.26L53.9444 154.22M53.9444 110.56V154.22" stroke="black" stroke-width="2"/>
+                    </svg>
+                </div>
+            <!-- Navigation -->
+                <nav class="col d-inline-flex justify-content-end">
+                    <ul class="nav">
+                        
+                        <li class="nav-item">
+                            <a href="" class="nav-link cust-f-color d-none d-md-block "> Contact us</a>
+                        </li>
+
+                        <!-- login icon  -->
+                        <% if (user) { %>
+                        <li class="nav-item">
+                            <a href="/profile/<%= user.email %>" class="nav-link cust-f-color d-none d-md-block "> profile </a>
+                        </li>
+                        <li class="nav-item">
+                            <form  action="/logout"  method="POST">
+                                <button class="nav-link" type="submit" name="logout"  id="logoutButton">
+                                    Log out
+                                    <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-box-arrow-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
+                                        <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+                                    </svg>
+                                </button>
+                            </form>
+                        </li> 
+                           
+                        <%  } else { %>
+                            <li class="nav-item">
+                                <a class="nav-link" id="loginButton" data-toggle="collapse" href="#loginFormContainer" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                    <span >Login</span>
+                                    <svg  class= "ml-1" width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-box-arrow-in-right" fill="#ffb61d" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
+                                        <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                                    </svg>     
+                                </a>
+                            </li>
+                          <%  }%>
+                        
+                     
+                    </ul>
+                </nav>
+            </header>
+        </div>
+    </div> 

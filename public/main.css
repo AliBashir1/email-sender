@@ -1,160 +1,39 @@
-/* Globals */
-* {
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Exo','Roboto', sans-serif;
-    font-size: 15px;
-    color: #00203FFF ;
-    margin:0;
-  
-}
-
-
-li {
-    list-style: none;
-    
-}
-form, p{
-    padding: 0;
-    margin: 0;
-}
-
-.container {
-    max-width: 940px;
-    margin: 0 auto;
-    padding-left: 20px;
-    padding-right: 20px;
-    
-}
-
-/* headers rules */
-.header{
-    padding-top:5px;
-    padding-bottom: 5px;
-    background-color: rgb(0, 32, 63);
+body{
+    font-family:'Exo','Roboto', sans-serif;
 
 }
+.cust-f-color{
+color: #ADEFD1FF ; 
+}
+.cust-f-color:hover{
+border-bottom: 2px solid #ADEFD1FF;
+border-radius: 5px;
+color:#ADEFD1FF ;
+}
 
-.header-logo{
-    float: left;
+.cust-f-color:active,
+.cust-f-color:focus{
+border-bottom: 2px solid #ADEFD1FF;
+border-radius: 5px;
+color:#ADEFD1FF ;
 }
 
 
-.navbar {
-    float: right;
-        
-}
 
-.navbar a {
-    text-decoration: none;
-    color: #ADEFD1FF;
-    padding: 5px;
-
-}
-
-.navbar a:hover{
-    color: #ADEFD1FF;
-    border-bottom: 2px solid #ADEFD1FF;
-    border-radius: 5px;
-    padding: 5px;
-
-}
-
-.navbar li {
-    display: inline;
-    padding-right: 10px;
-    
-}
-
-/* login header 1 */
-.login-h1 {
-    text-align: center;
-    font-size: 150%;
-    font-weight: lighter;
-    letter-spacing: 5px;
-    text-transform: uppercase;
-}
-
-.message{
-    margin: 0 auto;
-    height: 50px;
-    text-align: center;
-    font-size: 1.2em;
-    border-radius: 3px;
-    margin-top: 5px;
-    padding-top: 10px;
-      
-}
-
-.error{
-    background-color: rgb(236, 195, 195);
-    border: 1px solid rgb(100, 3, 3);
-    color: rgb(100, 3, 3);
-}
-
-.success{
-    background-color: rgb(195, 236, 209);
-    border: 1px solid rgb(11, 100, 3);
-    color: rgb(19, 100, 3);
+.cust-b-color{
+background-color: rgb(0, 32, 63);
 }
 
 
-/* forms rules */ 
 
-.forms-container {
-    background-color: white;
-}
 
-.forms-container h1 {
-    text-align: center;
-    margin-top: 0;
-    
-}
-
-.socialmedia-container, .login-reg-container {
-    width: 45%;
-    float: left;
-    padding: 30px;
-    height: auto;
+/* custom rules for  form's input and buttons */
+#signupFormContainer{
+    width: 60%;
+    border-top: 1px lightgray solid;
+    margin-top: 2px;
 
 }
-
-.svg-divider{
-    width: 10%;
-    float: left;
-}
-
-.svg-divider svg{
-    width: 100%;
-}
-
-input{
-    font-family: 'Exo','Roboto', sans-serif;
-    font-size: 15px;
-}
-
-.hidden-label {
-    position: absolute;
-    height: 0;
-    width: 0;
-    overflow: hidden;
-    visibility: hidden;
-    
-}
-
-.forms-container h1 {
-    font-size: 200%;
-    font-weight: normal;
-    border-bottom: 1px ;
-
-}
-
-.forms-container form {
-    margin: 0;
-}
-
 /* forms input */
 
 
@@ -162,215 +41,174 @@ input[type="email"],
 input[type="password"],
 input[type="submit"],
 input[type="text"]  {
-    
-    text-align: center;
-    display: block;
-    width: 100%;
-    height: 40px;
-    border: 0;
-    outline: none;
-    
-    
+
+text-align: center;
+display: block;
+width: 100%;
+height: 40px;
+border: 0;
+outline: none;
+
+
 }
 
 input[type="email"],
 input[type="password"],
 input[type="text"] {
-    
-    border-bottom: 1px solid lightgrey;
+
+border-bottom: 1px solid lightgrey;
 }
 
 input[type="email"]:focus,
 input[type="password"]:focus,
 input[type="text"]:focus {
-    
-    border-bottom: 1px solid #ADEFD1FF;
-    background-color:rgba(173, 239, 209, 0.35);
+
+border-bottom: 1px solid #ADEFD1FF;
+background-color:rgba(173, 239, 209, 0.35);
 
 }
 input[type="email"]:hover,
 input[type="password"]:hover,
 input[type="text"]:hover {
-    
-    background-color:rgba(173, 239, 209, 0.15);
+
+background-color:rgba(173, 239, 209, 0.15);
 
 }
 
 input[type="submit"] {
-    margin-top: 10px;
-    border-radius: 2px;
-    background-color: #00203FFF;
-    color:#ADEFD1FF;
+margin-top: 10px;
+border-radius: 2px;
+background-color: #00203FFF;
+color:#ADEFD1FF;
 
 }
 
 input[type="submit"]:focus,
 input[type="submit"]:hover {
-    margin-top: 10px;
-    border-radius: 2px;
-    color: #ADEFD1FF;
-    background-color: rgb(0, 59, 117) ;
+margin-top: 10px;
+border-radius: 2px;
+color: #ADEFD1FF;
+background-color: rgb(0, 59, 117) ;
 
 }
 
-/* social media buttons */
-
-.socialmedia-container .socialmedia-login-signup
- {
-    margin-bottom: 10px;  
-}
 
 
-/* button rules  */
-.socialmedia-container .socialmedia-login-signup .socialmedia-button {
-  
+/****** custom buttons */
+
+
+/* social media button customs */
+.socialmedia-button {
+
     background-color: white;
     border: 0;
     font-family:'Exo','Roboto', sans-serif;
     border-bottom: 1px solid lightgray;
-    width: 100%;
-  
-}
-
-/* button text rules */
-.socialmedia-container .socialmedia-login-signup .socialmedia-button .socialmedia-login-signup-text {  
-    font-size: 125%;
-    padding-left:  15px;
-    /* vertical-align: super; */
-}
-
-.socialmedia-container .socialmedia-login-signup .socialmedia-button:hover{
-  
+    /* width: 100%; */
+    }
+    
+    .socialmedia-button:hover{
+    
     background-color:rgba(173, 239, 209, 0.15);
     border: 0;
     font-family:'Exo','Roboto', sans-serif;
     border-bottom: 1px solid lightgray;
+    
+    }
+
+#signUpSection{
+    color: black;
+    
+}
+#signUpSection:hover,
+#signUpSection:focus{
+ background-color: rgba(135, 228, 186, 0.35);
+    
+}
+
+/* login logout */
+#logoutButton, #loginButton{
+    border: 0;
+    border-radius: 4px;
     width: 100%;
 
+   
+}
+
+#logoutButton{
+    background-color: rgba(255,255,255,0);
+    color: #EB5757;
+}
+#logoutButton:hover{
+    border-bottom: 2px solid #EB5757;;
+}
+#logoutButton:focus{
+    outline: none;
+
+}
+
+#loginButton{
+    color: rgb(255, 182, 29);
 }
 
 
-/* Profile rules */
-
-.user-profile {
-    margin-top: 40px;
-    width: 20%;
-    float: left;
-    padding-right:10px;
-
+#loginButton:hover{
+    border-bottom: 2px solid rgb(255, 182, 29); 
 }
 
-/* profile image */
-
-.user-profile .profile-image-holder img{
-    padding: 2px;
+.bttn {
+    padding: 5px;
+    border: 0;
+    border-radius: 4px;
     width: 100%;
-    border-bottom: 1px solid ;  
-
 }
 
-.user-profile .userinfo p{
-    font-size: 150%;
-    font-weight: normal;
+.bttn:focus{
+    outline: 0;
 }
 
-
-/* straight line */
-.divider-straight{
-    float: left;
-    width: 5%;
-    padding: 40px;
+.bttn-success{
+    background-color: rgba(135, 228, 186, 0.25);
+}
+.bttn-warning{
+    background-color: rgba(255, 182, 29, 0.25) ;
+}
+.bttn-danger{
+    background-color: rgba(235, 87, 87, 0.25);
 }
 
-/* Client List */
-
-.client-list-container{
-    float: left;
-    width: 40%;
+.bttn-success:hover{
+    background-color: rgba(135, 228, 186, 0.75);
 }
-.client-list-container h1 {
-    text-align: center;
-    font-size: 300%;
-    letter-spacing: 3px;
-    word-spacing: 0.5em;
-    border-bottom: 2px dotted #00203FFF;
-    text-transform: uppercase;
+.bttn-warning:hover{
+    background-color: rgba(255, 182, 29, 0.55) ;
+}
+.bttn-danger:hover{
+    background-color: rgba(235, 87, 87, 0.55);
 }
 
 
-.client-contact {
-    border-bottom: 1px solid #9B9B9B;
-    padding-bottom: 10px;
-    margin-bottom: 5px;
- 
-}
 
-.client-contact p:nth-child(2){
-    padding-bottom: 5px;
+/* modal close */
 
-}
-
-
-/* client icons */
-.client-list-container .client-contact #sendEmail svg,
-.client-list-container .client-contact #edit-contact svg,
-.client-list-container .client-contact #delete-contact svg 
- {
-    float: left;
-    width: 5%;
-
-}
-
-/* .client-list-container .client-contact #sendEmail .icons-tip ,
-.client-list-container .client-contact #edit-contact .icons-tip,
-.client-list-container .client-contact #delete-contact .icons-tp  
- {
-    visibility: hidden;
-
-}
-.client-list-container .client-contact #sendEmail .icons-tips:hover ,
-.client-list-container .client-contact #edit-contact .icons-tips:hover,
-.client-list-container .client-contact #delete-contact .icons-tops:hover  
- {
-    visibility: visible;
-
-} */
+.modalClose {
+    background-color: lightgray !important;
+    color: rgb(0, 59, 117) !important;
+    }
+.modalClose:hover,
+.modalClose:active{
+    background-color: #EB5757 !important;
+    color: white !important;
+    }
 
 
+/* yellow: #FFB61D
+light yellow: #ffe09e
+crayon : #87E4BA 
+light crayon: #c4ffe5
+red: #EB5757
 
+light red: #ffa6a6
 
-
-
-
-
-/* footer rules*/
-
-.footer{
-    text-align: center;
   
-}
-
-.group:before,
-.group:after {
-	content: "";
-	display: table;
-}
-
-.group:after {
-	clear: both;
-}
-
-.group {
-	zoom: 1;
-}
-
-/* 
-dark blue color: #00203FFF rgba(0, 32, 63)
-light blue color: #ADEFD1FF rgba(173, 239, 209)
-
-sraight- line grey = #9B9B9B
-
-
-
-
-*/
+*
