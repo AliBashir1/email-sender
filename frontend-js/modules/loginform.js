@@ -1,30 +1,27 @@
 // import axios from  'axios'
 
-// export default class LoginForm {
-//     constructor(){
-//         this.loginForm = document.querySelector('#loginForm')
-//         this.loginEmail = document.querySelector('#loginEmail')
-//         this.loginPassword = document.querySelector('#loginPassword')
+export default class LoginForm {
+    constructor(){
+        this.loginForm = document.querySelector("#loginForm")
+        this.forgotPassword = document.querySelector("#forgotPassword")
+        this.emailRecoveryForm = document.querySelector('#emailRecoveryForm')
  
-//         this.events()
-//     }
+        this.events()
+    }
 
-//     events(){
-//         this.loginForm.addEventListener("submit", (e)=>{
-//             e.preventDefault()
- 
-//             this.loginHanlder()
-            
-//         })
+    events(){
+        
+        this.forgotPassword.addEventListener("click", ()=> this.showEmailForm())
 
-//     }
-
-//     loginHanlder(){
-//         console.log("loginhandle")
-//         axios.post('/login', {email: this.loginEmail.value, password: this.loginPassword.value}).then(result=> console.log(result.data)).catch(error=> console.log(error))
+    }
 
 
-//     }
+    // email recovery form
+    showEmailForm(){
+        this.emailRecoveryForm.classList.toggle("d-none")
+        this.loginForm.classList.toggle("d-none")
+    }
   
 
-// }
+}
+
