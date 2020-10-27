@@ -1,9 +1,20 @@
 const usersCollection = require('../db').db().collection('users')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+
 
 let User = function(data){
-    this.data = data
+    
+    this.firstName = data.firstName
+    this.lastName = data.lastName
+    this.email = data.email
+    this.password = data.password
+    this.resetPasswordToken
+    this.resetPasswordExpires
+
 }
+
 
 User.prototype.register = function (){
     return new Promise( async (resolve, reject)=>{ 
@@ -11,14 +22,13 @@ User.prototype.register = function (){
         try {
              // delete confirm password from data
             let salt = bcrypt.genSaltSync(10)
-            this.data.hashedPassword = bcrypt.hashSync(this.data.password, salt)
+            this.hashedPassword = bcrypt.hashSync(this.password, salt)
             
             // delete extra attributes
-            delete this.data.password
-            delete this.data.confirmPassword
+            delete this.password
             
             // commandResult.ops is list of object that carry result of command
-            let commandResult = await usersCollection.insertOne(this.data)
+            let commandResult = await usersCollection.insertOne(this)
             let newUser = commandResult.ops[0]
             delete newUser.hashedPassword
             resolve(newUser)
@@ -32,13 +42,14 @@ User.prototype.register = function (){
 
 }
 
+
 User.prototype.login = function(){
     return new Promise( async (resolve, reject) => {
         try {
-             // look for user 
-            let attemptedUser = await usersCollection.findOne({email: this.data.email})
-            /// password comparison
-            if (attemptedUser && bcrypt.compareSync(this.data.password, attemptedUser.hashedPassword)){
+            // look for user 
+            let attemptedUser = await usersCollection.findOne({email: this.email})
+            // password comparison
+            if (attemptedUser && bcrypt.compareSync(this.password, attemptedUser.hashedPassword)){
                 delete attemptedUser.hashedPassword
                 resolve(attemptedUser)
             } else {
@@ -57,12 +68,10 @@ User.findUserByEmail = function(emailId){
             reject()
             return
         }
+
         try {
             let user =  await usersCollection.findOne({email: emailId})
-            
-            if (user){
-                delete user.hashedPassword
-            }
+            if (user){ delete user.hashedPassword }
             resolve(user)
             
         } catch(dbErr) {
@@ -72,6 +81,91 @@ User.findUserByEmail = function(emailId){
         }
     })
     
+}
+
+User.findAndGenerateResetTK = function (email){
+    return new Promise(async (resolve, reject)=>{
+
+        let token = crypto.randomBytes(20).toString('hex')
+        let tokenExpires = Date.now() + 1000 * 60 * 60
+        
+        try{
+            
+           let result = await usersCollection.findOneAndUpdate(
+                {email: email}, 
+                {$set:  {resetPasswordToken: token, 
+                        resetPasswordExpires: tokenExpires}}
+                )
+            
+            // clean up user -- findOneAndupdate return previous values- thats I used updated Token
+            user = {
+                firstName: result.value.firstName,
+                lastName: result.value.lastName,
+                email : result.value.email,
+                resetPasswordToken: token
+            } 
+
+            resolve(user)
+        
+        } catch (err){
+            console.log(err)
+            reject()
+        }
+    })
+}
+/**
+ * updates token in database
+ */
+
+// find user by token and update password right away
+// boolean for updating password if yes than up
+
+User.findUserByTkAndUpdatePassword = function(token, password){
+    return new Promise(async (resolve, reject)=>{
+        try {
+            let hashedPassword = await bcrypt.hashSync(password, bcrypt.genSaltSync(10))
+            
+            let result = await usersCollection.findOneAndUpdate(
+                {resetPasswordToken: token, resetPasswordExpires: {$gt: Date.now() }},
+                {$set: {resetPasswordToken: undefined, resetPasswordExpires: undefined, hashedPassword: hashedPassword}}
+            )
+
+            user = {
+                firstName: result.value.firstName,
+                lastName: result.value.lastName,
+                email : result.value.email
+            }
+
+            console.log(result)
+            resolve(user)
+            
+
+        }catch(err){
+            console.log(err)
+            reject()
+        }
+    })
+}
+
+
+User.findUserByToken = function(token){
+    return new Promise(async (resolve, reject)=>{
+        try{
+            
+            let user = await usersCollection.findOne({resetPasswordToken: token, resetPasswordExpires: {$gt: Date.now() }})
+            if (user){ 
+                delete user.hashedPassword
+               
+            }
+            resolve(user)
+
+        }catch(dbErr){
+            console.log(err)
+            reject()
+        }
+  
+    })
+
 }
 
 

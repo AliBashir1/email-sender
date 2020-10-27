@@ -2,6 +2,11 @@ body{
     font-family:'Exo','Roboto', sans-serif;
 
 }
+a {
+    text-decoration: none;
+    color: black;
+
+}
 .cust-f-color{
 color: #ADEFD1FF ; 
 }
@@ -33,6 +38,9 @@ background-color: rgb(0, 32, 63);
     border-top: 1px lightgray solid;
     margin-top: 2px;
 
+}
+#resetForm{
+    width: 50%;
 }
 /* forms input */
 
@@ -100,21 +108,21 @@ background-color: rgb(0, 59, 117) ;
 /* social media button customs */
 .socialmedia-button {
 
-    background-color: white;
-    border: 0;
-    font-family:'Exo','Roboto', sans-serif;
-    border-bottom: 1px solid lightgray;
-    /* width: 100%; */
-    }
-    
-    .socialmedia-button:hover{
-    
-    background-color:rgba(173, 239, 209, 0.15);
-    border: 0;
-    font-family:'Exo','Roboto', sans-serif;
-    border-bottom: 1px solid lightgray;
-    
-    }
+background-color: white;
+border: 0;
+font-family:'Exo','Roboto', sans-serif;
+border-bottom: 1px solid lightgray;
+/* width: 100%; */
+}
+
+.socialmedia-button:hover{
+
+background-color:rgba(173, 239, 209, 0.15);
+border: 0;
+font-family:'Exo','Roboto', sans-serif;
+border-bottom: 1px solid lightgray;
+
+}
 
 #signUpSection{
     color: black;
@@ -154,6 +162,14 @@ background-color: rgb(0, 59, 117) ;
 
 #loginButton:hover{
     border-bottom: 2px solid rgb(255, 182, 29); 
+}
+#forgotPassword{
+    background-color: #EB5757  !important;
+    color: white ;
+}
+#forgotPassword:hover{
+    background-color: rgba(235, 87, 87, 0.55)  !important;
+    color: black ;
 }
 
 .bttn {

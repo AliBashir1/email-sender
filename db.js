@@ -1,6 +1,6 @@
 const mongodb = require('mongodb')
 const dotenv = require('dotenv')
-dotenv.config()
+dotenv.config({path: './config/config.env'})
 
 async function dbConnection ()
 {
@@ -12,7 +12,7 @@ async function dbConnection ()
         
     try {
 
-        client = await mongodb.connect(process.env.CONNECTIONSTRING, clientOptions)
+        client = await mongodb.connect(process.env.CONNECTION_STRING, clientOptions)
         module.exports = client
         // run app once database connection is
         const app = require('./app')

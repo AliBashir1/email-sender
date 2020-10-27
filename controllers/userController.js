@@ -1,5 +1,7 @@
 const User = require('../models/User')
 const { validationResult } = require('express-validator')
+const flashMessage = require('../helpers/flashmessages')
+
 
 exports.homepage = function(req, res){
     if(req.session.user){
@@ -19,7 +21,7 @@ exports.register = async function(req, res){
     if (errorResult.isEmpty()){
         let userObj =  new User(req.body)
         
-        try{
+        try {
             let newUser = await userObj.register()
             req.session.user = newUser
             req.session.user.authenticated = true
@@ -27,23 +29,21 @@ exports.register = async function(req, res){
                 res.redirect(`profile/${newUser.email}`)
             })
 
-        } catch (error) {
-            req.flash("regErrors", "Something went wrong, please try again.")
-            req.session.save( () => res.redirect('/'))
+        } catch (error) { 
+            flashMessage(req, res, 'regErrors', "Something went wrong, please try again.", '/') 
         }
-    
-    } else {
-        errorResult.errors.forEach( error => req.flash('regErrors', error.msg))
-        req.session.save( () => res.redirect('/')) 
+        
+    } else { 
+        errorResult.errors.forEach(error => flashMessage(req, res, 'regErrors', error.msg, '/')) 
     }
 
 }
 exports.login = async function(req, res){
-    const errorResult = validationResult(req)
     
+    const errorResult = validationResult(req)
     if (errorResult.isEmpty()){
         let userObj = new User(req.body)
-        try{
+        try {
             let attemptedUser = await userObj.login()
             req.session.user = attemptedUser
             req.session.user.authenticated = true
@@ -51,16 +51,12 @@ exports.login = async function(req, res){
                 res.redirect(`profile/${attemptedUser.email}`)
             })
             
-
-        } catch(error) {
-            // invalid password- error
-            req.flash("loginErrors", error) 
-            req.session.save( () => res.redirect('/'))
+        } catch(error) { 
+            flashMessage(req, res, 'loginErrors', error, '/') 
         }
     
-    } else {
-        errorResult.errors.forEach( error => req.flash('loginErrors', error.msg))
-        req.session.save( () => res.redirect('/') )
+    } else { 
+        errorResult.errors.forEach(error => flashMessage(req, res, 'loginErrors', error.msg, '/')) 
     }
 }
 
@@ -72,18 +68,16 @@ exports.viewProfileScreen = function(req, res){
             email: req.session.user.email
         })
     } else {
-        req.flash("errors", "Please log in!!")
-        req.session.save(() => res.redirect('/') )
-    }
-   
-    }
+        flashMessage(req, res, 'errors', "Please log in!", '/')
+    }  
+}
 
 // check user's ownership 
 exports.isUserAuthenticated = async function(req, res, next){
     console.log(req.params)
     // user just logged in or registered are authenticated already
     if (req.session.user){
-        console.log("inside req.session.user if")
+        
         if (req.session.user.authenticated){
             req.session.user.authenticated = false
             next()
@@ -93,38 +87,27 @@ exports.isUserAuthenticated = async function(req, res, next){
         try {
             // look for user 
             let attemptedUser = await User.findUserByEmail(req.params.email)
-            console.log(attemptedUser)
 
             //  if user exists
             if (attemptedUser && req.visitorId == attemptedUser._id){
-                console.log("inside attemptedUser if")
-        
                 next()
             } else {
-                console.log("inside attemptedUser else")
                 // if use try to access other user account
                 delete req.session.user 
                 // user is not owner of profile
-                req.flash("errors", "You are not allowed in this url.")
-                req.session.save(()=> res.redirect('/'))
+                flashMessage(req, res, 'errors', "You are not allowed in this url.", '/')
+
             }
             // user doesn't exits in databasex
-            
-            
-            
+ 
         } catch{ 
             // database error
-            console.log("inside catch ")
-            req.flash('errors', "Something went wrong, Please try again.")
-            req.session.save(()=> res.redirect('/'))
-
+            flashMessage(req, res, 'errors', "Something went wrong, Please try again.", '/')
         }
 
     } else { 
-        console.log("inside req.session.user else")
         // user is not logged in
-        req.flash("errors", "You must be logged in.")
-        req.session.save(()=> res.redirect('/'))
+        flashMessage(req, res, 'errors', "Please log in ", '/')
     }
 
 }
@@ -136,5 +119,6 @@ exports.logout = function (req, res){
 
   
 }
+
 
 

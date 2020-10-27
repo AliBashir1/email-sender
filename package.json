@@ -6,6 +6,7 @@
   "dependencies": {
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
+    "@sendgrid/mail": "^7.3.0",
     "axios": "^0.20.0",
     "babel-loader": "^8.1.0",
     "bcrypt": "^5.0.0",
@@ -16,8 +17,11 @@
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "express-validator": "^6.6.1",
+    "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.6.2",
     "nodemon": "^2.0.4",
+    "passport": "^0.4.1",
+    "passport-google-oauth2": "^0.2.0",
     "sanitize-html": "^2.1.0",
     "webpack": "^4.44.2",
     "webpack-cli": "^4.1.0"

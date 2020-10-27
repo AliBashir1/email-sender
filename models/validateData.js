@@ -1,4 +1,4 @@
-const { body } = require('express-validator')
+const { body, check } = require('express-validator')
 const User = require('./User')
 
 
@@ -12,7 +12,13 @@ exports.validateRegistration = [
     // password rules
     body('password', '"Password must be a combination of 8 to 25 letters with one uppercase, one lowercase and one number."').exists().matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/),
     body('password', "Password cannot be empty.").exists(),
-    body('confirmPassword', "Password doesn't match.").exists().not().equals('password'),
+    body('confirmPassword').custom((value, { req }) => {
+        if (value !== req.body.password) {
+            throw new Error('Password confirmation does not match password');
+        } else {
+            return true
+        }
+    }),
 
     // email rules
     body('email', 'Please provide valid email address').isEmail(),
@@ -29,8 +35,8 @@ exports.validateRegistration = [
     
     ]
 
-// registeration form
-exports.validateLogin  = [
+// loginForm
+exports.validateLoginEmail  = [
     body('email', 'Invalid email address.').isEmail(),
     body('email').custom( emailId => {
         return User.findUserByEmail(emailId).then( user =>{
@@ -38,8 +44,21 @@ exports.validateLogin  = [
                 return Promise.reject("Email does not exists!")
             }
         })
-    }),
+    })
     
 ]
+
+exports.validateResetPassword = [
+    body('password', '"Password must be a combination of 8 to 25 letters with one uppercase, one lowercase and one number."').exists().matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/),
+    body('confirmPassword', '"Password must be a combination of 8 to 25 letters with one uppercase, one lowercase and one number."').exists().matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/),
+    body('confirmPassword').custom((value, { req }) => {
+        if (value !== req.body.password) {
+            throw new Error('Password confirmation does not match password');
+        } else {
+            return true
+        }
+    }),
+]
+
 
 
