@@ -1,8 +1,8 @@
 <%- include('includes/header') %>
 
 <div class="container mt-5 p-5" id="resetForm">
-    <p>Hi, <%= user.firstName + " " + user.lastName %></p>
-    <p>Please enter new password for <%= user.email %></p>
+    <p>Hi, <%= attemptedUser.firstName + " " + attemptedUser.lastName %></p>
+    <p>Please enter new password for <%= attemptedUser.email %></p>
     <form action="/recover-password/reset/<%= user.resetPasswordToken %>" method="POST">
         <label for="regPassword" class="d-none" >Password</label>
         <input required name="password" type="password" id="regPassword" placeholder="Enter Your Password">

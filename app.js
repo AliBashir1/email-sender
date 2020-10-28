@@ -52,7 +52,7 @@ app.use(function(req, res, next){
     res.locals.regErrors = req.flash('regErrors')
     res.locals.loginErrors = req.flash('loginErrors')
     res.locals.success = req.flash("success")
-
+    res.locals.contactErrors = req.flash('contactErrors')
     // variables available in ejs templates
     res.locals.user = req.session.user
     

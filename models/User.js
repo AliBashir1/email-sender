@@ -16,21 +16,31 @@ let User = function(data){
 }
 
 
+/**
+ * Summary.
+ *      
+ * @return {Promise} 
+ */
 User.prototype.register = function (){
     return new Promise( async (resolve, reject)=>{ 
  
         try {
-             // delete confirm password from data
             let salt = bcrypt.genSaltSync(10)
             this.hashedPassword = bcrypt.hashSync(this.password, salt)
-            
-            // delete extra attributes
             delete this.password
             
             // commandResult.ops is list of object that carry result of command
             let commandResult = await usersCollection.insertOne(this)
-            let newUser = commandResult.ops[0]
-            delete newUser.hashedPassword
+            
+            let key = String (commandResult.ops[0].firstName).concat(commandResult.ops[0].email)
+            let newUser = {
+                firstName: commandResult.ops[0].firstName,
+                lastName: commandResult.ops[0].lastName,
+                email: commandResult.ops[0].email,
+                _id: attemptedUser._id,
+                authenticationKey: bcrypt.hashSync(key, salt)
+            }
+            
             resolve(newUser)
 
         } catch (dbErr) {
@@ -46,12 +56,20 @@ User.prototype.register = function (){
 User.prototype.login = function(){
     return new Promise( async (resolve, reject) => {
         try {
-            // look for user 
             let attemptedUser = await usersCollection.findOne({email: this.email})
-            // password comparison
             if (attemptedUser && bcrypt.compareSync(this.password, attemptedUser.hashedPassword)){
                 delete attemptedUser.hashedPassword
-                resolve(attemptedUser)
+                // encrypted authentication key
+                let salt = bcrypt.genSaltSync(10)
+                let key = attemptedUser.firstName.concat(attemptedUser.email)
+                let newUser = {
+                    firstName: attemptedUser.firstName,
+                    lastName: attemptedUser.lastName,
+                    email: attemptedUser.email,
+                    _id: attemptedUser._id, 
+                    authenticationKey: bcrypt.hashSync(key, salt)
+                }
+                resolve(newUser)
             } else {
                 reject("Invalid password!")
             }
@@ -68,7 +86,6 @@ User.findUserByEmail = function(emailId){
             reject()
             return
         }
-
         try {
             let user =  await usersCollection.findOne({email: emailId})
             if (user){ delete user.hashedPassword }
@@ -135,11 +152,8 @@ User.findUserByTkAndUpdatePassword = function(token, password){
                 lastName: result.value.lastName,
                 email : result.value.email
             }
-
-            console.log(result)
             resolve(user)
-            
-
+        
         }catch(err){
             console.log(err)
             reject()

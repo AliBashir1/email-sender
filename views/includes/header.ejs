@@ -37,7 +37,7 @@
                         </li>
 
                         <!-- login icon  -->
-                        <% if (user && !user.resetPasswordToken ) { %>
+                        <% if (user) { %>
                         <li class="nav-item">
                             <a href="/profile/<%= user.email %>" class="nav-link cust-f-color d-none d-md-block "> profile </a>
                         </li>
@@ -69,13 +69,17 @@
             </header>
         </div>
     </div>
+
+<% if(errors.length > 0 || success.length > 0) { %>
+    <%- include('flash') %>
+<% } %>
 <!-- login drop down -->
 <!-- sendError is attribute of session if session is not active container will stay hidden -->
  
 
 <% if (loginErrors.length > 0) { %>
     <div class="container collapse show " id="loginFormContainer">
-    <%- include("includes/flash")%>
+    <%- include("flash")%>
 <% } else { %>
     <div class="container collapse " id="loginFormContainer">
 <% } %>
@@ -155,7 +159,3 @@
 
     </div>
 </div> 
-<% if(errors.length > 0 || success.length > 0) { %>
-    <%- include('flash') %>
-<% } %>
-   

@@ -2,6 +2,10 @@ body{
     font-family:'Exo','Roboto', sans-serif;
 
 }
+p{
+    margin: 0;
+    padding: 0;
+}
 a {
     text-decoration: none;
     color: black;
@@ -23,13 +27,19 @@ border-radius: 5px;
 color:#ADEFD1FF ;
 }
 
-
-
 .cust-b-color{
 background-color: rgb(0, 32, 63);
 }
 
+.client-list{
+    height: 400px;
+    overflow-y: auto;
+    
+}
 
+.new-contact{
+    width: 50%;
+}
 
 
 /* custom rules for  form's input and buttons */
@@ -97,6 +107,11 @@ margin-top: 10px;
 border-radius: 2px;
 color: #ADEFD1FF;
 background-color: rgb(0, 59, 117) ;
+
+}
+
+#disabledEmail{
+    background-color: rgba(255, 182, 29, 0.45) !important;
 
 }
 

@@ -1,7 +1,18 @@
 const User = require('../models/User')
+const Contact = require('../models/Contact')
 const { validationResult } = require('express-validator')
 const flashMessage = require('../helpers/flashmessages')
+const bcrypt = require('bcrypt')
 
+
+/**
+ * Summary.
+ *      It will redirect based on user's login status.
+ * @route '/'
+ * @method GET
+ * @param {*} req 
+ * @param {*} res 
+ */
 
 exports.homepage = function(req, res){
     if(req.session.user){
@@ -12,6 +23,16 @@ exports.homepage = function(req, res){
    
 }
 
+
+/**
+ * Summary.
+ *      Routes the user to its profile if no error found in input data.
+ * 
+ * @route '/register'
+ * @method POST
+ * @param {*} req 
+ * @param {*} res 
+ */
 exports.register = async function(req, res){
     
     // Errors from validation middleware
@@ -24,7 +45,6 @@ exports.register = async function(req, res){
         try {
             let newUser = await userObj.register()
             req.session.user = newUser
-            req.session.user.authenticated = true
             req.session.save(()=>{
                 res.redirect(`profile/${newUser.email}`)
             })
@@ -34,10 +54,21 @@ exports.register = async function(req, res){
         }
         
     } else { 
-        errorResult.errors.forEach(error => flashMessage(req, res, 'regErrors', error.msg, '/')) 
+        flashMessage(req, res, 'contactErrors',  errorResult.errors, `/profile/${req.params.email}/`)
     }
 
 }
+
+
+/**
+ * Summary.
+ *      If no error found, it will redirect the user to its profile and save session as well.
+ * 
+ * @route '/login'
+ * @method POST    
+ * @param {*} req 
+ * @param {*} res 
+ */
 exports.login = async function(req, res){
     
     const errorResult = validationResult(req)
@@ -46,7 +77,6 @@ exports.login = async function(req, res){
         try {
             let attemptedUser = await userObj.login()
             req.session.user = attemptedUser
-            req.session.user.authenticated = true
             req.session.save(()=>{
                 res.redirect(`profile/${attemptedUser.email}`)
             })
@@ -56,61 +86,40 @@ exports.login = async function(req, res){
         }
     
     } else { 
-        errorResult.errors.forEach(error => flashMessage(req, res, 'loginErrors', error.msg, '/')) 
+        flashMessage(req, res, 'contactErrors',  errorResult.errors, `/profile/${req.params.email}/`)
     }
 }
 
-exports.viewProfileScreen = function(req, res){
 
+/**
+ * Summary.
+ *      Renders user's Profile.
+ * 
+ * @route '/profile/:email'
+ * @method GET
+ * @param {*} req 
+ * @param {*} res 
+ */
+
+exports.viewProfileScreen = async function(req, res){
     if(req.session.user){
-        res.render('profile',{ 
-            fullname: req.session.user.firstName +" "+ req.session.user.lastName,
-            email: req.session.user.email
-        })
+        try{
+            let contacts = await Contact.findContactsByOwnerID(req.session.user._id)
+            res.render('profile',{ 
+                fullname: req.session.user.firstName +" "+ req.session.user.lastName,
+                email: req.session.user.email,
+                id: req.session.user._id,
+                contacts: contacts
+            })
+        } catch(err){
+            console.log(err)
+        }
+  
     } else {
         flashMessage(req, res, 'errors', "Please log in!", '/')
     }  
 }
 
-// check user's ownership 
-exports.isUserAuthenticated = async function(req, res, next){
-    console.log(req.params)
-    // user just logged in or registered are authenticated already
-    if (req.session.user){
-        
-        if (req.session.user.authenticated){
-            req.session.user.authenticated = false
-            next()
-            return
-        }
-
-        try {
-            // look for user 
-            let attemptedUser = await User.findUserByEmail(req.params.email)
-
-            //  if user exists
-            if (attemptedUser && req.visitorId == attemptedUser._id){
-                next()
-            } else {
-                // if use try to access other user account
-                delete req.session.user 
-                // user is not owner of profile
-                flashMessage(req, res, 'errors', "You are not allowed in this url.", '/')
-
-            }
-            // user doesn't exits in databasex
- 
-        } catch{ 
-            // database error
-            flashMessage(req, res, 'errors', "Something went wrong, Please try again.", '/')
-        }
-
-    } else { 
-        // user is not logged in
-        flashMessage(req, res, 'errors', "Please log in ", '/')
-    }
-
-}
 
 exports.logout = function (req, res){
     req.session.destroy(

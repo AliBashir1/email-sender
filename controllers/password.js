@@ -8,12 +8,15 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 
 /**
+ * Summary.
+ *      Find the user using email using the "User" model method that will generate a temporary token to be used as a recovery link 
+ *      and send it user via email.
  * @route /recover-password
- * @description Reocover password - generate token and send recovery email.
  * @access public
  * @param {*} req 
  * @param {*} res 
  */ 
+
 exports.recover =  async function(req, res){
     const errorResult = validationResult(req)
     if (errorResult.isEmpty()){
@@ -33,7 +36,6 @@ exports.recover =  async function(req, res){
             }
             // send email
             try { 
-                
                 await sgMail.send(mailOptions)
                 flashMessage(req, res, 'success', `A password recovery email have sent to ${attemptedUser.email}, please check your email.`, '/')   
             
@@ -47,18 +49,26 @@ exports.recover =  async function(req, res){
         }
 
     } else {
-        errorResult.errors.forEach( error => flashMessage(req, res, 'loginErrors', error.msg, '/')  )
+        flashMessage(req, res, 'contactErrors',  errorResult.errors, `/profile/${req.params.email}/`)
     }
 
 }
 
+/**
+ * Summary.
+ *      Finds user by using token from url and render "reset" html page.
+ * 
+ * @route /recover-password/reset/:token
+ * @param {*} req 
+ * @param {*} res 
+ */
 exports.reset =  async function (req, res){
     try {
         let attemptedUser = await User.findUserByToken(req.params.token)
         if (!attemptedUser) { 
             flashMessage(req, res, 'errors', 'Password reset token is invalid or has expired.', '/') 
         } else { 
-            res.render("reset", {user: attemptedUser}) 
+            res.render("reset", {attemptedUser: attemptedUser}) 
         }
           
     } catch {
@@ -66,6 +76,13 @@ exports.reset =  async function (req, res){
     }
 }
 
+/**
+ * Summary.
+ *      Finds user using token from url.
+ * @route /recover-password/token/:token
+ * @param {*} req 
+ * @param {*} res 
+ */
 exports.resetPassword = async function (req, res){
     const errorResult = validationResult(req)
     if (errorResult.isEmpty()){
@@ -94,7 +111,7 @@ exports.resetPassword = async function (req, res){
         } catch (err){ }
 
     } else {
-        errorResult.errors.forEach( error => flashMessage(req, res, 'errors', error.msg, `/recover-password/reset/${req.params.token}`) )
+        flashMessage(req, res, 'contactErrors',  errorResult.errors, `/profile/${req.params.email}/`)
     }
     
 }
