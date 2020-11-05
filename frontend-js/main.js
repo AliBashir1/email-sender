@@ -1,4 +1,5 @@
-import LoginForm from './modules/loginform'
+import LoginForm from "./modules/loginform"
 
-
-if(document.querySelector('#loginFormContainer')){ new LoginForm()}
+if (document.querySelector("#loginFormContainer")) {
+  new LoginForm()
+}

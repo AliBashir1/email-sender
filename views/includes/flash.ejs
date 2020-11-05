@@ -1,40 +1,16 @@
 <% errors.forEach(function(message) { %>
-    <div class="alert alert-danger text-center" role="alert">
-        <%= message %> 
-    </div>
-    
+<div class="alert alert-danger text-center" role="alert"><%= message %></div>
+
+<% }) %> <% loginErrors.forEach(function(message) { %>
+<div class="alert alert-danger text-center" role="alert"><%= message %></div>
+
+<% }) %> <% regErrors.forEach(function(message) { %>
+<div class="alert alert-danger text-center" role="alert"><%= message %></div>
+
+<% }) %> <% success.forEach(function(message) { %>
+<div class="alert alert-success text-center" role="alert"><%= message %></div>
+
+<% }) %> <% contactErrors.forEach(function(message) { %>
+<div class="alert alert-danger text-center" role="alert"><%= message %></div>
+
 <% }) %>
-
-<% loginErrors.forEach(function(message) { %>
-  <div class="alert alert-danger text-center" role="alert">
-      <%= message %> 
-  </div>
-  
-<% }) %>
-
-<% regErrors.forEach(function(message) { %>
-  <div class="alert alert-danger text-center" role="alert">
-      <%= message %> 
-  </div>
-  
-<% }) %>
-
-
-<% success.forEach(function(message) { %>
-  <div class="alert alert-success text-center" role="alert">
-      <%= message %> 
-  </div>
-  
-<% }) %>
-
-<% contactErrors.forEach(function(message) { %>
-  <div class="alert alert-danger text-center" role="alert">
-      <%= message %> 
-  </div>
-  
-<% }) %>
-
-
-
-
-
